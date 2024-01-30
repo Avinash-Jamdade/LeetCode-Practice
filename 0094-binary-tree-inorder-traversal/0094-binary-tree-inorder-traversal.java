@@ -13,19 +13,24 @@
  *     }
  * }
  */
+import java.util.ArrayList;
+import java.util.List;
+
 class Solution {
-    private List<Integer> res = new ArrayList<>();
     public List<Integer> inorderTraversal(TreeNode root) {
-        traverse(root);
-        return res;
+        List<Integer> list = new ArrayList<>();
+        inorderHelper(root, list);
+        return list;
     }
-    
-    private void traverse(TreeNode root) {
+
+    private void inorderHelper(TreeNode root, List<Integer> list) {
         if (root == null) {
             return;
         }
-        traverse(root.left);
-        res.add(root.val);
-        traverse(root.right);
+
+        inorderHelper(root.left, list);  // Traverse left subtree
+        list.add(root.val);              // Add current node's value to the list
+        inorderHelper(root.right, list); // Traverse right subtree
     }
 }
+
