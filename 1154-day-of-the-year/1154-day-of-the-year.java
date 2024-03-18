@@ -14,7 +14,6 @@ class Solution {
 		while(--month>0)
 		{
 			day = day+ days[month-1];
-			//month--;
 		}
 		
 		return day;
