@@ -1,81 +1,41 @@
-/**
- * Definition for singly-linked list.
- * public class ListNode {
- *     int val;
- *     ListNode next;
- *     ListNode() {}
- *     ListNode(int val) { this.val = val; }
- *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
- * }
- */
-// class Solution {
-//      public ListNode middleNode(ListNode head) {
-//         ListNode slow=head;
-//         ListNode fast=head;
-//         while(fast != null && fast.next !=null){
-//             slow=slow.next;
-//             fast=fast.next.next;
-//         }
-//         return slow;
-//     }
-//     public boolean isPalindrome() {
-//         if(head== null || head.next == null){
-//             return true;
-//         }
-//        ListNode midNode=middleNode(head);
-//        List curr=mid;
-//        ListNode prev=null;
-//         ListNode curr=midNode;
-//         ListNode next;
-//         while(curr != null){
-//             next=curr.next;
-//             curr.next=prev;
-//             prev=curr;
-//             curr=next;
-//         }
-//         ListNode right=prev;
-//         ListNode left=head;
-//         while(right != null){
-//             if(left.val != right.val){
-//                 return false;
-//             }
-//             left=left.next;
-//             right=right.next;
-//         }
-//         return true;
-//     }
-    
 
-// }
 class Solution {
-    public boolean isPalindrome(ListNode head) {
-        if(head.next==null){
-            return true;
+    public ListNode middleNode(ListNode head){
+        ListNode s=head;
+        ListNode f=head;
+        while(f != null && f.next !=null){
+            s=s.next;
+            f=f.next.next;
+
         }
-        
-        ListNode node = checkHeadAndTail(head, head);
-        return node != null;
+        return s;
     }
-    
-    public ListNode checkHeadAndTail(ListNode head, ListNode curr){
-        if(curr.next==null){
-            if(head.val == curr.val){
-                return head.next;
-            }
-            else{
-                return null;
-            }
+    public ListNode reverseList(ListNode head) {
+        ListNode prev=null;
+        ListNode curr = head;
+        ListNode tail = head;
+        ListNode next;
+        while(curr != null){
+            next=curr.next;
+            curr.next=prev;
+            prev=curr;
+            curr=next;
         }
-        
-        ListNode node = checkHeadAndTail(head, curr.next);
-     if(node!=null && node.next==null){
-            return node;
-        }
-         if(node == null || node.val != curr.val){
-            return null;
-        }
-        
-        return node.next;
+     return head=prev;  
     }
-    
+     public boolean  isPalindrome(ListNode head){
+        ListNode mid=middleNode(head);
+        ListNode headSecond=reverseList(mid);
+        ListNode reverseHead=headSecond;
+
+        while (head != null && headSecond != null){
+            if(head.val != headSecond.val){
+                break;
+            }
+            head=head.next;
+            headSecond=headSecond.next;
+        }
+        reverseList(reverseHead);
+        return head==null || headSecond == null;
+    }
 }
